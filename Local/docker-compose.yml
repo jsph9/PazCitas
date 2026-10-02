@@ -1,0 +1,20 @@
+# Base de datos local para PazCitas (reemplaza a AWS RDS)
+# Uso:  cd Local && docker compose up -d
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: pazcitas-mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: CLINICA_PAZCITAS
+      MYSQL_USER: pazadmin
+      MYSQL_PASSWORD: pazcitas_local
+      TZ: America/Lima
+    command: --log-bin-trust-function-creators=1
+    volumes:
+      - "./PazCitasScript_local.sql:/docker-entrypoint-initdb.d/01_pazcitas.sql:ro"
+      - pazcitas-data:/var/lib/mysql
+volumes:
+  pazcitas-data:
