@@ -34,7 +34,7 @@ Sistema web para la gestión integral de citas médicas ambulatorias de una clí
 
 ## Capturas
 
-![Detalle de la cita](REEMPLAZAR-URL-1)
+![Detalle de la cita](<img width="2559" height="1433" alt="PC8" src="https://github.com/user-attachments/assets/1f69f0a3-b1ef-4ab3-8559-ce0cf58f6a31" />)
 
 
 
@@ -111,8 +111,6 @@ Las cuentas de demo (administrador, médico y paciente) están en `docs/credenci
 ---
 
 ## Video
-<img width="2559" height="1433" alt="PC8" src="https://github.com/user-attachments/assets/1f69f0a3-b1ef-4ab3-8559-ce0cf58f6a31" />
-
 https://github.com/user-attachments/assets/89bd6a31-64a2-45ce-a6c7-f8a6a6bed20b
 
 
