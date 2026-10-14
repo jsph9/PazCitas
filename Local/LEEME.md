@@ -7,6 +7,8 @@ Lo único que usaba AWS era la base de datos MySQL en RDS. Ahora apunta a un MyS
   El original está en `db.properties.aws` en la misma carpeta.
 - `Local/PazCitasScript_local.sql` → copia del script con el `USE PAZCITAS_PRUEBA;` (línea 2488) corregido a `USE CLINICA_PAZCITAS;`. Sin eso no se cargaban recetas, notas ni pagos.
   Además empieza con `SET NAMES utf8mb4;`: sin eso el contenedor cargaba el script como latin1 y las tildes salían rotas ("PediatrÃa").
+  Al final, mueve las fechas de citas, pagos y seguros un número exacto de semanas para que las citas atendidas queden en el pasado
+  y las programadas empiecen el lunes siguiente al día en que se carga la base. Para recentrarlas: `docker compose down -v` y `docker compose up -d`.
 - `Local/docker-compose.yml` → MySQL 8 con usuario `pazadmin` / `pazcitas_local` que carga el script al arrancar.
 
 ## 1. Base de datos

@@ -2664,3 +2664,19 @@ CALL INSERTAR_PAGO(@id_pago, '2025-08-19', 150.00, 128.25, 21.75, 'CANCELADO', 2
 CALL INSERTAR_PAGO(@id_pago, '2025-08-21', 150.00, 105.00, 45.00, 'CANCELADO', 3, 83);
 CALL INSERTAR_PAGO(@id_pago, '2025-08-25', 150.00, 75.00, 75.00, 'CANCELADO', 4, 84);
 CALL INSERTAR_PAGO(@id_pago, '2025-08-26', 150.00, 0.00, 150.00, 'CANCELADO', 5, 85);
+
+-- ------------------------------------------------------------------------
+-- Fechas relativas a hoy (para la demo)
+-- Los datos se crearon en 2025. Aqui se mueven todas las fechas un numero
+-- EXACTO de semanas, asi cada cita conserva su dia de la semana (y su turno):
+--   * las citas ATENDIDAS / CANCELADAS quedan en el pasado
+--   * las PROGRAMADAS empiezan el lunes de la proxima semana
+-- Se recalcula cada vez que se carga el script (docker compose down -v / up -d).
+-- ------------------------------------------------------------------------
+SET @primera_programada := (SELECT MIN(fecha) FROM cita WHERE estado_cita = 'PROGRAMADA');
+SET @proximo_lunes := DATE_ADD(CURDATE(), INTERVAL (7 - WEEKDAY(CURDATE())) DAY);
+SET @dias := FLOOR(DATEDIFF(@proximo_lunes, @primera_programada) / 7) * 7;
+
+UPDATE cita   SET fecha      = DATE_ADD(fecha,      INTERVAL @dias DAY);
+UPDATE pago   SET fecha_pago = DATE_ADD(fecha_pago, INTERVAL @dias DAY);
+UPDATE seguro SET vigencia   = DATE_ADD(vigencia,   INTERVAL @dias DAY) WHERE vigencia < '2099-01-01';
