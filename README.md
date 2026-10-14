@@ -32,11 +32,21 @@ Sistema web para la gestión integral de citas médicas ambulatorias de una clí
 
 ---
 
+## Capturas
+
+| Portal del paciente | Reserva de cita |
+|---|---|
+| ![Portal del paciente](REEMPLAZAR-URL-1) | ![Reserva de cita](REEMPLAZAR-URL-2) |
+
+---
+
 ## El Proceso
 
 El mayor reto fue conectar dos mundos distintos: un backend de dominio y persistencia en **Java**, organizado como proyecto Maven multimódulo (DBManager, Domain, Persistance, Business y Web), y una interfaz en **ASP.NET Web Forms**, comunicados mediante **servicios web SOAP**. Es un ejercicio real de programación distribuida, donde ambos lados deben mantenerse sincronizados sin compartir runtime ni tipos nativos.
 
 Desarrollé el **módulo de Paciente** de punta a punta: base de datos, lógica de backend e interfaz. El punto más delicado fue la **reprogramación de citas existentes**: cuando se cancela una cita ya asignada, el sistema no puede solo marcarla como cancelada. Debe liberar ese horario y reconciliarlo con el resto de la agenda del médico, evitando huecos mal gestionados o choques con otras citas. Esta lógica vive en los procedimientos almacenados de MySQL, junto con la función que asigna pacientes a las citas disponibles.
+
+![Modelo de base de datos](Base%20de%20Datos/DiagramaFisico_BD.png)
 
 El otro foco deliberado fue el **diseño UX de la vista del paciente**, el usuario con menor familiaridad técnica del sistema. El portal resume en tarjetas sus citas programadas, atenciones realizadas, recetas y exámenes, y la reserva de citas se guía paso a paso (especialidad, médico, fecha, hora, sede y confirmación) en vez de pedir todos los datos en un solo formulario.
 
