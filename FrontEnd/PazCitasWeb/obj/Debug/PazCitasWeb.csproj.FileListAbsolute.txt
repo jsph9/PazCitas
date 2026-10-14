@@ -1,7 +1,0 @@
-D:\PUCP 2025-I\ProyectoProgra3\ClinicaPazCitas\FrontEnd\PazCitasWeb\bin\PazCitasWeb.dll.config
-D:\PUCP 2025-I\ProyectoProgra3\ClinicaPazCitas\FrontEnd\PazCitasWeb\bin\PazCitasWeb.dll
-D:\PUCP 2025-I\ProyectoProgra3\ClinicaPazCitas\FrontEnd\PazCitasWeb\bin\PazCitasWeb.pdb
-D:\PUCP 2025-I\ProyectoProgra3\ClinicaPazCitas\FrontEnd\PazCitasWeb\obj\Debug\PazCitasWeb.csproj.AssemblyReference.cache
-D:\PUCP 2025-I\ProyectoProgra3\ClinicaPazCitas\FrontEnd\PazCitasWeb\obj\Debug\PazCitasWeb.csproj.CoreCompileInputs.cache
-D:\PUCP 2025-I\ProyectoProgra3\ClinicaPazCitas\FrontEnd\PazCitasWeb\obj\Debug\PazCitasWeb.dll
-D:\PUCP 2025-I\ProyectoProgra3\ClinicaPazCitas\FrontEnd\PazCitasWeb\obj\Debug\PazCitasWeb.pdb

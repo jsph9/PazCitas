@@ -36,3 +36,13 @@ replay_pid*
 /BackEnd/PazCitasWeb/target/
 /BackEnd/PazCitasMain/target/
 /BackEnd/PazCitasSolution/PazCitasWeb/target/
+
+# --- Archivos generados / del sistema (limpieza del repo) ---
+.vs/
+.DS_Store
+Thumbs.db
+desktop.ini
+bin/
+obj/
+target/
+*.user
