@@ -34,13 +34,12 @@ Sistema web para la gestión integral de citas médicas ambulatorias de una clí
 
 ## Capturas
 
-![Detalle de la cita](<img width="2559" height="1433" alt="PC8" src="https://github.com/user-attachments/assets/1f69f0a3-b1ef-4ab3-8559-ce0cf58f6a31" />)
-
-
+![Detalle de la cita](https://github.com/user-attachments/assets/1f69f0a3-b1ef-4ab3-8559-ce0cf58f6a31)
 
 | Mis citas | Reserva de cita |
 |---|---|
-| ![Mis citas]<img width="2559" height="1434" alt="PC2" src="https://github.com/user-attachments/assets/631cb2c2-cffd-4b9c-9627-8d3e1409fbf1" />) | ![Reserva de cita](<img width="2559" height="1431" alt="PC7" src="https://github.com/user-attachments/assets/55a4337e-1a0c-44d1-a971-2974f4782b7b" />) |
+| ![Mis citas](https://github.com/user-attachments/assets/631cb2c2-cffd-4b9c-9627-8d3e1409fbf1) | ![Reserva de cita](https://github.com/user-attachments/assets/55a4337e-1a0c-44d1-a971-2974f4782b7b) |
+
 ---
 
 ## El Proceso
