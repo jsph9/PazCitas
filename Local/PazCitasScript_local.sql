@@ -1,3 +1,6 @@
+-- Forzar UTF-8: sin esto el cliente de MySQL del contenedor lee el script como latin1 y rompe las tildes
+SET NAMES utf8mb4;
+
 DROP SCHEMA IF EXISTS CLINICA_PAZCITAS;
 CREATE SCHEMA IF NOT EXISTS CLINICA_PAZCITAS;
 USE CLINICA_PAZCITAS;

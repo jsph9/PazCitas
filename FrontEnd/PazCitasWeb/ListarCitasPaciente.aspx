@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/PazCitasPaciente.Master" AutoEventWireup="true" CodeBehind="ListarCitasPaciente.aspx.cs" Inherits="PazCitasWA.ListarCitasPaciente" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="cph_Title" runat="server">
-    Mis Citas Programadas
+    Mis Citas
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cph_Scripts" runat="server">
     <style>
@@ -28,11 +28,11 @@
         .header-column {
             text-align: left;
         }
-            .header-column.col-medico { flex: 0 0 22%; max-width: 22%; }
-            .header-column.col-especialidad { flex: 0 0 20%; max-width: 20%; }
+            .header-column.col-medico { flex: 0 0 30%; max-width: 30%; }
+            .header-column.col-especialidad { flex: 0 0 16%; max-width: 16%; }
             .header-column.col-estado { flex: 0 0 15%; max-width: 15%; }
-            .header-column.col-fecha { flex: 0 0 15%; max-width: 15%; }
-            .header-column.col-hora { flex: 0 0 15%; max-width: 15%; }
+            .header-column.col-fecha { flex: 0 0 14%; max-width: 14%; }
+            .header-column.col-hora { flex: 0 0 12%; max-width: 12%; }
             .header-column.col-acciones { flex: 0 0 13%; max-width: 13%; text-align:center; }
 
 
@@ -59,17 +59,27 @@
             color: #4a5568; /* Darker gray for content */
         }
             /* Tamaños de columna para las celdas de datos, deben coincidir con los headers */
-            .appointment-cell.col-medico { flex: 0 0 22%; max-width: 22%; }
-            .appointment-cell.col-especialidad { flex: 0 0 20%; max-width: 20%; }
+            .appointment-cell.col-medico { flex: 0 0 30%; max-width: 30%; }
+            .appointment-cell.col-especialidad { flex: 0 0 16%; max-width: 16%; }
             .appointment-cell.col-estado { flex: 0 0 15%; max-width: 15%; }
-            .appointment-cell.col-fecha { flex: 0 0 15%; max-width: 15%; }
-            .appointment-cell.col-hora { flex: 0 0 15%; max-width: 15%; }
+            .appointment-cell.col-fecha { flex: 0 0 14%; max-width: 14%; }
+            .appointment-cell.col-hora { flex: 0 0 12%; max-width: 12%; }
             .appointment-cell.col-acciones { flex: 0 0 13%; max-width: 13%; justify-content: center; padding-right:0;}
 
 
         .doctor-info {
             display: flex;
             align-items: center;
+            min-width: 0;
+            width: 100%;
+        }
+        .doctor-text {
+            min-width: 0; /* permite que el texto se recorte dentro de la columna */
+        }
+        .doctor-name, .doctor-role {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .doctor-avatar img, .doctor-avatar-placeholder {
             width: 48px;
@@ -77,6 +87,7 @@
             border-radius: 50%;
             object-fit: cover;
             margin-right: 0.75rem;
+            flex-shrink: 0;
             background-color: #e2e8f0; /* Placeholder bg */
         }
         .doctor-avatar-placeholder {
@@ -107,13 +118,71 @@
             background-color: #ffffff; /* White background for pill */
             border: 1px solid #e2e8f0;
         }
-        .status-pill .icon { margin-right: 0.4rem; }
+        .status-pill .pill-icon { margin-right: 0.4rem; }
 
-        /* Colores específicos para estados (ejemplos) */
-        .status-pill.confirmada { color: #38a169; border-color: #9ae6b4; background-color:#f0fff4; } /* Verde */
-        .status-pill.pendiente { color: #dd6b20; border-color: #fbd38d; background-color:#fffaf0; } /* Naranja */
+        /* Etiqueta de especialidad: gris oscuro como "Mis" del titulo */
+        .specialty-pill {
+            display: inline-block;
+            max-width: 100%;
+            padding: 0.3rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #ffffff;
+            background-color: #2d3748;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Colores por estado (clases asignadas en ListarCitasPaciente.aspx.cs) */
+        .status-pill.programada { color: #b7791f; border-color: #FFE082; background-color: var(--color-principal-claro); } /* Amarillo PazCitas */
+        .status-pill.atendida { color: #38a169; border-color: #9ae6b4; background-color:#f0fff4; } /* Verde */
         .status-pill.cancelada { color: #e53e3e; border-color: #feb2b2; background-color:#fff5f5; } /* Rojo */
-        .status-pill.completada { color: #718096; border-color: #cbd5e0; background-color:#edf2f7; } /* Gris */
+
+        /* Titulo con el amarillo de la marca (igual que Sedes) */
+        .page-main-title .title-highlight {
+            background: linear-gradient(90deg, #E6B000, var(--color-principal));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Filtros por estado */
+        .estado-filtros {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .filtro-btn {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            padding: 0.4rem 1rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #4a5568;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+        }
+        .filtro-btn:hover { border-color: var(--color-principal); }
+        .filtro-btn.active {
+            background-color: var(--color-principal);
+            border-color: var(--color-principal);
+            color: #343a40;
+        }
+        .filtro-count {
+            display: inline-block;
+            min-width: 1.5rem;
+            margin-left: 0.35rem;
+            padding: 0 0.4rem;
+            border-radius: 10px;
+            background-color: #edf2f7;
+            font-size: 0.75rem;
+            text-align: center;
+        }
+        .filtro-btn.active .filtro-count { background-color: rgba(255,255,255,0.6); }
 
 
         .appointment-cell .icon {
@@ -130,7 +199,7 @@
             cursor: pointer;
             padding: 0.25rem;
         }
-        .actions-btn:hover { color: #2d3748; }
+        .actions-btn:hover { color: var(--color-principal-hover); }
 
         /* Responsive: en pantallas pequeñas, las cabeceras podrían ocultarse y las filas tener más estructura vertical */
         @media (max-width: 992px) {
@@ -166,10 +235,47 @@
             border-radius: 15px;
         }
     </style>
+    <script>
+        // Filtro de citas por estado (solo en el navegador, sin recargar la pagina)
+        document.addEventListener('DOMContentLoaded', function () {
+            var barra = document.querySelector('.estado-filtros');
+            var botones = document.querySelectorAll('.filtro-btn');
+            var filas = document.querySelectorAll('.appointment-row');
+            var vacio = document.getElementById('sinResultadosFiltro');
+            if (!barra) return;
+            if (filas.length === 0) { barra.style.display = 'none'; return; }
+
+            botones.forEach(function (boton) {
+                var filtro = boton.getAttribute('data-filtro');
+                var total = filtro === 'TODAS' ? filas.length
+                    : document.querySelectorAll('.appointment-row[data-estado="' + filtro + '"]').length;
+                boton.querySelector('.filtro-count').textContent = total;
+
+                boton.addEventListener('click', function () {
+                    botones.forEach(function (b) { b.classList.remove('active'); });
+                    boton.classList.add('active');
+                    var visibles = 0;
+                    filas.forEach(function (fila) {
+                        var mostrar = filtro === 'TODAS' || fila.getAttribute('data-estado') === filtro;
+                        fila.style.display = mostrar ? '' : 'none';
+                        if (mostrar) visibles++;
+                    });
+                    vacio.style.display = visibles === 0 ? '' : 'none';
+                });
+            });
+        });
+    </script>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="cph_Contenido" runat="server">
     <div class="container mt-4 appointments-container">
-        <h1 class="page-main-title">Mis Próximas Citas</h1>
+        <h1 class="page-main-title">Mis <span class="title-highlight">Citas</span></h1>
+
+        <div class="estado-filtros">
+            <button type="button" class="filtro-btn active" data-filtro="TODAS">Todas<span class="filtro-count"></span></button>
+            <button type="button" class="filtro-btn" data-filtro="PROGRAMADA">Programadas<span class="filtro-count"></span></button>
+            <button type="button" class="filtro-btn" data-filtro="ATENDIDA">Atendidas<span class="filtro-count"></span></button>
+            <button type="button" class="filtro-btn" data-filtro="CANCELADA">Canceladas<span class="filtro-count"></span></button>
+        </div>
 
         <!-- Cabeceras de la "tabla" -->
         <div class="appointments-header-row d-none d-lg-flex"> <%-- d-lg-flex para mostrar solo en LG y superior --%>
@@ -183,7 +289,7 @@
         
         <asp:Repeater ID="rptMisCitas" runat="server" OnItemDataBound="rptMisCitas_ItemDataBound">
             <ItemTemplate>
-                <div class="appointment-row">
+                <div class="appointment-row" data-estado='<%# Eval("estadoCita") %>'>
                     <div class="appointment-cell col-medico">
                         <div class="doctor-info">
                             <%--<asp:PlaceHolder ID="phDoctorAvatar" runat="server">
@@ -195,11 +301,11 @@
                                     <i class="fas fa-user-md"></i> <!-- Icono FontAwesome de doctor -->
                                 </div>
                             </asp:PlaceHolder>
-                            <div>
-                                <div>
+                            <div class="doctor-text">
+                                <div class="doctor-name">
                                     <asp:Literal ID="litNombreMedico" runat="server" />
                                 </div>
-                                <div>
+                                <div class="doctor-role">
                                     <asp:Literal ID="litSubNom" runat="server" />
                                 </div>
                             </div>
@@ -233,6 +339,10 @@
             </ItemTemplate>
 
         </asp:Repeater>
+
+        <div id="sinResultadosFiltro" class="no-appointments-message" style="display:none;">
+            No tienes citas en este estado.
+        </div>
         
         <asp:Label ID="lblMensajeGeneral" runat="server" CssClass="text-danger mt-3 d-block text-center" Visible="false"></asp:Label>
 

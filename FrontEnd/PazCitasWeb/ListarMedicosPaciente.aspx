@@ -60,7 +60,7 @@
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
         }
         .doctor-card .card-img-top-wrapper {
-            height: 200px;
+            aspect-ratio: 532 / 572; /* proporcion real de genericDoctor.png: se ve completa */
             overflow: hidden;
             border-top-left-radius: 15px;
             border-top-right-radius: 15px;
@@ -69,7 +69,7 @@
         .doctor-card .card-img-top {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
         }
         .doctor-card .card-body {
             padding: 1rem 1.25rem;
@@ -126,15 +126,12 @@
             margin-top: 1rem;
         }
 
-        .doctors-grid-container {
-            padding-left: 1.5rem;  /* Añade espacio a la izquierda */
-            padding-right: 1.5rem; /* Añade espacio a la derecha */
-        }
     </style>
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="cph_Contenido" runat="server">
-    
+    <div class="container mt-4 pb-5">
+
     <div class="hero-search-section">
         <h1 class="main-title">Encuentra a tu <span class="highlight-title">Especialista</span></h1>
         <div class="search-bar-container">
@@ -147,7 +144,7 @@
         </div>
     </div>
 
-    <div class="container-fluid doctors-grid-container">
+    <div class="doctors-grid-container">
         
         <asp:UpdatePanel ID="updMedicos" runat="server">
             <ContentTemplate>
@@ -192,4 +189,5 @@
         <asp:Label ID="lblMensaje" runat="server" CssClass="text-danger error-message" Visible="false"></asp:Label>
     </div>
 
+    </div> <%-- Cierre de .container --%>
 </asp:Content>

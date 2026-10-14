@@ -66,7 +66,7 @@ namespace PazCitasWA
                 var lit = (Literal)e.Item.FindControl("litNombreMedico");
                 if (lit != null)
                 {
-                    lit.Text = "Dr. " + ct.horarioTrabajo.medico.nombre.ToString() + ct.horarioTrabajo.medico.apellidoPaterno.ToString();
+                    lit.Text = "Dr. " + ct.horarioTrabajo.medico.nombre.ToString() + " " + ct.horarioTrabajo.medico.apellidoPaterno.ToString();
                 }
 
                 lit = (Literal)e.Item.FindControl("litSubNom");
@@ -79,25 +79,27 @@ namespace PazCitasWA
                 if (lit != null)
                 {
 
-                    lit.Text = ct.horarioTrabajo.medico.especialidad.nombre.ToString();
+                    lit.Text = "<span class=\"specialty-pill\">" + HttpUtility.HtmlEncode(ct.horarioTrabajo.medico.especialidad.nombre.ToString()) + "</span>";
                 }
 
                 lit = (Literal)e.Item.FindControl("litEstadoCita");
                 if (lit != null)
                 {
-                    if (estadoCita.CANCELADA == ct.estadoCita)
+                    // Etiqueta de color segun el estado (estilos .status-pill en el .aspx)
+                    string clase, icono, texto;
+                    switch (ct.estadoCita)
                     {
-                        ;
+                        case estadoCita.PROGRAMADA:
+                            clase = "programada"; icono = "fa-regular fa-calendar-check"; texto = "Programada";
+                            break;
+                        case estadoCita.ATENDIDA:
+                            clase = "atendida"; icono = "fa-solid fa-circle-check"; texto = "Atendida";
+                            break;
+                        default:
+                            clase = "cancelada"; icono = "fa-solid fa-circle-xmark"; texto = "Cancelada";
+                            break;
                     }
-                    else if (estadoCita.PROGRAMADA == ct.estadoCita)
-                    {
-                        ;
-                    }
-                    else if (estadoCita.ATENDIDA == ct.estadoCita)
-                    {
-                        ;
-                    }
-                    lit.Text = ct.estadoCita.ToString();
+                    lit.Text = "<span class=\"status-pill " + clase + "\"><i class=\"" + icono + " pill-icon\"></i>" + texto + "</span>";
                 }
 
                 lit = (Literal)e.Item.FindControl("litFecha");

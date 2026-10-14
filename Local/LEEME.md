@@ -6,6 +6,7 @@ Lo único que usaba AWS era la base de datos MySQL en RDS. Ahora apunta a un MyS
 - `BackEnd/PazCitasSolution/PazCitasWeb/src/main/resources/db.properties` → `hostname=localhost`, contraseña local `pazcitas_local` (ya encriptada con la misma clave).
   El original está en `db.properties.aws` en la misma carpeta.
 - `Local/PazCitasScript_local.sql` → copia del script con el `USE PAZCITAS_PRUEBA;` (línea 2488) corregido a `USE CLINICA_PAZCITAS;`. Sin eso no se cargaban recetas, notas ni pagos.
+  Además empieza con `SET NAMES utf8mb4;`: sin eso el contenedor cargaba el script como latin1 y las tildes salían rotas ("PediatrÃa").
 - `Local/docker-compose.yml` → MySQL 8 con usuario `pazadmin` / `pazcitas_local` que carga el script al arrancar.
 
 ## 1. Base de datos
