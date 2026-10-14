@@ -48,7 +48,12 @@ El mayor reto fue conectar dos mundos distintos: un backend de dominio y persist
 
 Desarrollé el **módulo de Paciente** de punta a punta: base de datos, lógica de backend e interfaz. El punto más delicado fue la **reprogramación de citas existentes**: cuando se cancela una cita ya asignada, el sistema no puede solo marcarla como cancelada. Debe liberar ese horario y reconciliarlo con el resto de la agenda del médico, evitando huecos mal gestionados o choques con otras citas. Esta lógica vive en los procedimientos almacenados de MySQL, junto con la función que asigna pacientes a las citas disponibles.
 
+<details>
+<summary><b>Ver modelo de base de datos</b></summary>
+
 ![Modelo de base de datos](Base%20de%20Datos/DiagramaFisico_BD.png)
+
+</details>
 
 El otro foco deliberado fue el **diseño UX de la vista del paciente**, el usuario con menor familiaridad técnica del sistema. El portal resume en tarjetas sus citas programadas, atenciones realizadas, recetas y exámenes, y la reserva de citas se guía paso a paso (especialidad, médico, fecha, hora, sede y confirmación) en vez de pedir todos los datos en un solo formulario.
 
